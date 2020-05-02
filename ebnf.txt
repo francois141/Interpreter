@@ -1,0 +1,34 @@
+<programm> <= {<statement>}
+
+<block> <= '{' {<statement>} '}'
+
+<statement> <= <variable-decl> ';' 
+               | <assignment> ';' 
+               | <print-statement> ';' 
+               | <if-statement>  
+               | <while-statement>  
+               | <for-statement> 
+               | <function-decl> 
+               | <return-statement> ';' 
+               | <block> 
+               
+<variable-decl> <= <variable-type> <identifier> '=' <expression>
+
+<assignement> <= <identifier> '=' <expression>
+
+<print-statement> <= 'print' '(' <expression> ')'
+
+<if-statement> <= 'if' '(' <expression> ')' <block> ['else' <block>]
+
+<while-statement> <= 'while' '(' <expression> ')' <block>
+
+<for-statement> <= 'for' '(' <variable-decl> ';' <expression> ';' <assignement> ')' <block>
+
+<function-decl> <= 
+
+<return-statement> <= 'return' <expression>
+
+<block> <= '{' {<statement>} '}'
+
+
+
