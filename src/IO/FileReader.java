@@ -26,7 +26,6 @@ public class FileReader {
 				text += input.nextLine() + "\n";
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
