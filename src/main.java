@@ -1,8 +1,11 @@
+import IO.FileReader;
 
 public class main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		FileReader input = new FileReader("ebnf.txt");
+		System.out.println(input.read());
+		System.out.println(input);
 
 	}
 
