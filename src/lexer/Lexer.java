@@ -108,6 +108,8 @@ public class Lexer {
 			currentIndex++;
 		}
 		
+		listOfTokens.add(new Token(TokenType.TOKEN_END,""));
+		
 		return listOfTokens;
 	}
 	

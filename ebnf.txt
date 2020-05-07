@@ -1,8 +1,6 @@
 <programm> <= {<statement>}
 
-<block> <= '{' {<statement>} '}'
-
-<statement> <= <variable-decl> ';' 
+<statement> <= <declaration> ';' 
                | <assignment> ';' 
                | <print-statement> ';' 
                | <if-statement>  
@@ -12,7 +10,7 @@
                | <return-statement> ';' 
                | <block> 
                
-<variable-decl> <= <variable-type> <identifier> '=' <expression>
+<declaration> <= <variable-type> <identifier> '=' <expression>
 
 <assignement> <= <identifier> '=' <expression>
 
@@ -22,7 +20,7 @@
 
 <while-statement> <= 'while' '(' <expression> ')' <block>
 
-<for-statement> <= 'for' '(' <variable-decl> ';' <expression> ';' <assignement> ')' <block>
+<for-statement> <= 'for' '(' <declaration> ';' <expression> ';' <assignement> ')' <block>
 
 <function-decl> <= <variable-type> <identifier> '(' [<parameter>  {',' <parameter>}] ')' <block>
 
@@ -31,7 +29,7 @@
 <block> <= '{' {<statement>} '}'
 
 <variable-type> <= 'int' | 'bool'
-
+	
 <expression> <= <basic-expression> {<relational-op> <simple-expression>}
 
 <relational-op> <= '<' | '>' | '=='| '!='| '<=' | '>='
