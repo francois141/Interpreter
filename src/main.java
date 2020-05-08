@@ -3,6 +3,7 @@ import java.util.List;
 import IO.FileReader;
 import lexer.Lexer;
 import lexer.Token;
+import parser.Parser;
 
 public class main {
 
@@ -13,6 +14,10 @@ public class main {
 		Lexer lex = new Lexer(text);
 		List<Token> list = lex.toTokens();
 		System.out.println(list);
+		
+		Parser parser = new Parser(lex);
+		
+		parser.read();
 	}
 
 }

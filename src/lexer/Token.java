@@ -93,21 +93,21 @@ public class Token {
 	}
 	
 	private static boolean isAdditiveOp(String in) {
-		if(in.matches("+|-")) {
+		if(in.equals("+") || in.equals("-")) {
 			return true;
 		}
 		return false;
 	}
 	
 	private static boolean isMultiplicativeOp(String in) {
-		if(in.matches("%|/|*")) {
+		if(in.equals("*") | in.equals("/") | in.equals("%") ) {
 			return true;
 		}
 		return false;
 	}
 	
 	private static boolean isUnaryOp(String in) {
-		if(in.matches("!") || in.length() == 1) { // Ugrade this with regex
+		if(in.matches("!") && in.length() == 1) { // Ugrade this with regex
 			return true;
 		}
 		return false;

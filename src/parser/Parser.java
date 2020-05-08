@@ -34,12 +34,18 @@ public class Parser {
 		
 		index = 0;
 		currentToken = listTokens.get(0);
-		
+	}
+	
+	public NodeProgramm read() {
 		programm = parseProgramm();
+		return programm;
 	}
 	
 	public void consumeToken() {	
 		index++;	
+		if(index >= listTokens.size()) {
+			return;
+		}
 		currentToken = listTokens.get(index);
 	}
 	
@@ -71,21 +77,29 @@ public class Parser {
 	
 	public NodeStatement parseStatement() {
 		
+		NodeStatement output = null;
+		
 		switch(currentToken.getTokenType()) {
-		case TOKEN_VARIABLETYPE: return parseVariableDecl();
-		case TOKEN_IDENTIFIER:	return parseIdentifier();
-		case TOKEN_PRINT:	return parsePrintStatement();
+		case TOKEN_VARIABLETYPE: output = parseVariableDecl();   break;
+		case TOKEN_IDENTIFIER:	 output = parseIdentifier();     break;
+		case TOKEN_PRINT:	     output = parsePrintStatement(); break;
 		//case TOKEN_IF: 
 		//case TOKEN_WHILE:
 		//case TOKEN_RETURN:
 		//case TOKEN_BRACKETSOPEN:
 		}
 		
-		return null;
+		consumeToken();
+		
+		if(current() != TokenType.TOKEN_ENDINSTRUCTION) {
+			error("Missing EndInstruction " + current());
+		}
+		
+		return output;
 	}
 	
-	public void error() {
-		System.out.println("error");
+	public void error(String in) {
+		System.out.println(in);
 	}
 	
 	public NodeDeclaration parseVariableDecl(){
@@ -95,7 +109,7 @@ public class Parser {
 		NodeExpression expression;
 		
 		if(currentToken.getTokenType() != TokenType.TOKEN_VARIABLETYPE) {
-			error();
+			error("Error VariableType");
 		}
 		
 		type = currentToken.getValue();
@@ -103,10 +117,16 @@ public class Parser {
 		consumeToken();
 		
 		if(currentToken.getTokenType() != TokenType.TOKEN_IDENTIFIER) {
-			error();
+			error("Error Identifier " + current());
 		}
 		
 		identifier = currentToken.getValue();
+
+		consumeToken();
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_ASSIGN) {
+			error("Error assign missing " + current());
+		}
 		
 		expression = parseExpression();
 		
@@ -125,7 +145,7 @@ public class Parser {
 		NodeExpression expr;
 		
 		if(currentToken.getTokenType() != TokenType.TOKEN_IDENTIFIER) {
-			error();
+			error("Error Identifier " + current());
 			return null;
 		}
 		
@@ -134,7 +154,7 @@ public class Parser {
 		consumeToken();
 		
 		if(currentToken.getTokenType() != TokenType.TOKEN_ASSIGN) {
-			error();
+			error("Error Assign");
 			return null;
 		}
 
@@ -176,6 +196,7 @@ public class Parser {
 	}
 	
 	public NodeExpression parseFactor() {
+		
 		consumeToken();
 		
 		TokenType type = currentToken.getTokenType();
@@ -207,10 +228,9 @@ public class Parser {
 			return new NodeUnaryExpression(op,expr);
 		}
 		
-		System.out.println("Error");
+		System.out.println("Error BAD PARSING  "  + currentToken.getTokenType());
 			
 		return null;
 	}
-
 
 }
