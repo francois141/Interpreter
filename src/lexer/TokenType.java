@@ -1,7 +1,6 @@
 package lexer;
 
 public enum TokenType{
-
 	TOKEN_ASSIGN,
 	
 	TOKEN_COMPOP,
