@@ -1,9 +1,11 @@
 package parser.node;
 
 public class NodeIdentifier extends NodeExpression {
+	
+	private String identifier;
 
-	public NodeIdentifier() {
-		// TODO Auto-generated constructor stub
+	public NodeIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
 }

@@ -1,9 +1,11 @@
 package parser.node;
 
 public class NodeReturn extends NodeStatement {
+	
+	private NodeExpression expr;
 
-	public NodeReturn() {
-		// TODO Auto-generated constructor stub
+	public NodeReturn(NodeExpression expr) {
+		this.expr = expr;
 	}
 
 }

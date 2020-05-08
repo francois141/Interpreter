@@ -22,7 +22,7 @@
 
 <for-statement> <= 'for' '(' <declaration> ';' <expression> ';' <assignement> ')' <block>
 
-<function-decl> <= <variable-type> <identifier> '(' [<parameter>  {',' <parameter>}] ')' <block>
+<function-decl> <= <variable-type> <identifier> '(' [<expressionr>  {',' <expression>}] ')' <block>
 
 <return-statement> <= 'return' <expression>
 

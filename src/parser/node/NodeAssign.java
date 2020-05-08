@@ -1,9 +1,13 @@
 package parser.node;
 
-public class NodeAssign {
+public class NodeAssign extends NodeStatement{
+	
+	private String tag;
+	private NodeExpression expr;
 
-	public NodeAssign() {
-		// TODO Auto-generated constructor stub
+	public NodeAssign(String tag,NodeExpression expr) {
+		this.tag = tag;
+		this.expr = expr;
 	}
 
 }

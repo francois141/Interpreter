@@ -9,5 +9,9 @@ public class NodeProgramm extends Node {
 	public NodeProgramm() {
 		
 	}
+	
+	public void add(NodeStatement node) {
+		statements.add(node);
+	}
 
 }

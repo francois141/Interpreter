@@ -11,23 +11,28 @@ public class Token {
 		this.value = value;
 	}
 	
+	public TokenType getTokenType() {
+		return this.type;
+	}
+	
+	public String getValue() {
+		return this.value;
+	}
+	
 	public static TokenType tokenize(String toTokenType) {
 		
-		if(toTokenType.equals("+")) {
-			return TokenType.TOKEN_PLUS;
+		if(isBinaryOp(toTokenType)) {
+			return TokenType.TOKEN_BINARYOP;
 		}
-		if(toTokenType.equals("-")) {
-			return TokenType.TOKEN_MINUS;
+		
+		if(isUnaryOp(toTokenType)) {
+			return TokenType.TOKEN_UNARYOP;
 		}
-		if(toTokenType.equals("*")) {
-			return TokenType.TOKEN_MULT;
+		
+		if(isCompOp(toTokenType)) {
+			return TokenType.TOKEN_COMPOP;
 		}
-		if(toTokenType.equals("/")) {
-			return TokenType.TOKEN_DIV;
-		}
-		if(toTokenType.equals("%")) {
-			return TokenType.TOKEN_MODULO;
-		}
+		
 		
 		if(toTokenType.equals("=")) {
 			return TokenType.TOKEN_ASSIGN;
@@ -35,25 +40,6 @@ public class Token {
 		
 		if(toTokenType.equals(";")) {
 			return TokenType.TOKEN_ENDINSTRUCTION;
-		}
-		
-		if(toTokenType.equals("==")) {
-			return TokenType.TOKEN_EQUAL;
-		}
-		if(toTokenType.equals("<")) {
-			return TokenType.TOKEN_LESS;
-		}
-		if(toTokenType.equals("<=")) {
-			return TokenType.TOKEN_LESSEQUAL;
-		}
-		if(toTokenType.equals(">")) {
-			return TokenType.TOKEN_GREATER;
-		}
-		if(toTokenType.equals(">=")) {
-			return TokenType.TOKEN_GREATEREQUAL;
-		}
-		if(toTokenType.equals("!=")) {
-			return TokenType.TOKEN_NOTEQUAL;
 		}
 		
 		if(toTokenType.equals("(")) {
@@ -82,11 +68,13 @@ public class Token {
 			case "for": return TokenType.TOKEN_FOR; 
 			case "while": return TokenType.TOKEN_WHILE;
 			case "return": return TokenType.TOKEN_RETURN; 
-			case "int": return TokenType.TOKEN_INTEGER; 
-			case "bool": return TokenType.TOKEN_BOOLEAN; 
 			case "else": return TokenType.TOKEN_ELSE; 
 			case "print": return TokenType.TOKEN_PRINT;
 			}
+		}
+		
+		if(isVariableType(toTokenType)) {
+			return TokenType.TOKEN_VARIABLETYPE;
 		}
 		
 		if(isIdentifier(toTokenType)) {
@@ -100,6 +88,27 @@ public class Token {
 		return TokenType.TOKEN_NULL;
 	}
 	
+	private static boolean isBinaryOp(String in) {
+		if(in.matches("+|-|/|*|%")) {
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean isUnaryOp(String in) {
+		if(in.matches("!") || in.length() == 1) { // Ugrade this with regex
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean isCompOp(String in) {
+		if(in.matches("==|<=|<|>|>=|!=")) {
+			return true;
+		}
+		return false;
+	}
+	
 	private static boolean isInteger(String in) {
 		if(in.matches("^\\d+$")) {
 			return true;
@@ -109,6 +118,13 @@ public class Token {
 	
 	private static boolean isBoolean(String in ) {
 		if(in.matches("true|false")) {
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean isVariableType(String in) {
+		if(in.matches("int|bool")) {
 			return true;
 		}
 		return false;

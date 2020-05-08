@@ -40,6 +40,10 @@ public class Lexer {
 	
 	public List<Token> toTokens(){
 		
+		if(listOfTokens.size() > 0) {
+			return listOfTokens;
+		}
+		
 		toTokenize += " ";
 		
 		int currentIndex = 0;

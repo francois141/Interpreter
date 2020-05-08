@@ -1,9 +1,15 @@
 package parser.node;
 
-public class NodeFunctionCall extends NodeExpression {
+import java.util.List;
 
-	public NodeFunctionCall() {
-		// TODO Auto-generated constructor stub
+public class NodeFunctionCall extends NodeExpression {
+	
+	private String identifier;
+	private List<NodeExpression> parameters;
+
+	public NodeFunctionCall(String identifier, List <NodeExpression> parameters) {
+		this.identifier = identifier;
+		this.parameters = parameters;
 	}
 
 }
