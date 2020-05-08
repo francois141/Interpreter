@@ -1,0 +1,46 @@
+<programm> <= {<statement>}
+
+<statement> <= <declaration> ';' 
+               | <assignment> ';' 
+               | <print-statement> ';' 
+
+               
+<declaration> <= <variable-type> <identifier> '=' <expression>
+
+<assignement> <= <identifier> '=' <expression>
+
+<print-statement> <= 'print' '(' <expression> ')'
+
+<variable-type> <= 'int' | 'bool'
+	
+<expression> <= <basic-expression> {<relational-op> <simple-expression>}
+
+<relational-op> <= '<' | '>' | '=='| '!='| '<=' | '>='
+
+<basic-expression> <= <term> {<additive-operator> <term>}
+
+<additive-operator> <= '+' | '-'
+
+<term> <= <factor> {<multiplicative-operator> <factor>}
+
+<multiplicative-operator> <= '*' | '/' | '%'
+
+<factor> <= <literal> | <identifier> | <function-call> | <sub-expression> | <unary>
+
+<literal> <= <int-literal> | < bool-literal>
+
+<identifier>  <= ('_' | <letter>) { '_' | <letter> | <digit> }
+
+<sub-expression> <= '(' <expression> ')'
+
+<unary> <= '!' <expression>
+
+<int-literal> <= <digit> {<digit>}
+
+<bool-literal> <= 'true' | 'false'
+
+<digit> <= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+
+<letter> <= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'   
+			'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z'   
+			

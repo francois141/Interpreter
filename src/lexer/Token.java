@@ -21,8 +21,12 @@ public class Token {
 	
 	public static TokenType tokenize(String toTokenType) {
 		
-		if(isBinaryOp(toTokenType)) {
-			return TokenType.TOKEN_BINARYOP;
+		if(isAdditiveOp(toTokenType)) {
+			return TokenType.TOKEN_ADDITIVEOP;
+		}
+		
+		if(isMultiplicativeOp(toTokenType)) {
+			return TokenType.TOKEN_MULTIPLICATIVEOP;
 		}
 		
 		if(isUnaryOp(toTokenType)) {
@@ -88,8 +92,15 @@ public class Token {
 		return TokenType.TOKEN_NULL;
 	}
 	
-	private static boolean isBinaryOp(String in) {
-		if(in.matches("+|-|/|*|%")) {
+	private static boolean isAdditiveOp(String in) {
+		if(in.matches("+|-")) {
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean isMultiplicativeOp(String in) {
+		if(in.matches("%|/|*")) {
 			return true;
 		}
 		return false;

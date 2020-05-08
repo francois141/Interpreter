@@ -147,8 +147,7 @@ public class Lexer {
 		
 	}
 	
-	
-	public String toString() {
+	public String toString() { // TODO: Implement this function
 		String output = "";
 		
 		return output;

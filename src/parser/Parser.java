@@ -10,9 +10,12 @@ import parser.node.NodeAssign;
 import parser.node.NodeBinaryExpression;
 import parser.node.NodeDeclaration;
 import parser.node.NodeExpression;
+import parser.node.NodeIdentifier;
+import parser.node.NodeLiteral;
 import parser.node.NodePrint;
 import parser.node.NodeProgramm;
 import parser.node.NodeStatement;
+import parser.node.NodeUnaryExpression;
 
 public class Parser {
 	
@@ -45,6 +48,10 @@ public class Parser {
 			return listTokens.get(index+1).getTokenType(); 
 		}
 		return null;
+	}
+	
+	public TokenType current() {
+		return currentToken.getTokenType();
 	}
 	
 	public NodeProgramm parseProgramm() {
@@ -148,9 +155,62 @@ public class Parser {
 	}
 	
 	public NodeExpression parseSimpleExpression() {
-		return null;
+		NodeExpression expressionTerm= parseTerm();
+		
+		if(getNext() == TokenType.TOKEN_ADDITIVEOP) {
+			consumeToken();
+			return new NodeBinaryExpression(currentToken.getValue(),expressionTerm,parseSimpleExpression());
+		}
+		return expressionTerm;
 	}
 	
+	public NodeExpression parseTerm() {
+		NodeExpression expressionFactor = parseFactor();
+		
+		if(getNext() == TokenType.TOKEN_MULTIPLICATIVEOP) {
+			consumeToken();
+			return new NodeBinaryExpression(currentToken.getValue(),expressionFactor,parseFactor());
+		}
+		
+		return expressionFactor;
+	}
 	
+	public NodeExpression parseFactor() {
+		consumeToken();
+		
+		TokenType type = currentToken.getTokenType();
+		
+		if(type == TokenType.TOKEN_INTEGER) {
+			return new NodeLiteral<Integer>(Integer.parseInt(currentToken.getValue()));
+		}
+		
+		if(type == TokenType.TOKEN_BOOLEAN) {
+			return new NodeLiteral<Boolean>(Boolean.parseBoolean(currentToken.getValue()));
+		}
+		
+		if(type == TokenType.TOKEN_IDENTIFIER) {
+			return new NodeIdentifier(currentToken.getValue());
+		}
+		
+		if(type == TokenType.TOKEN_OPEN) {
+			NodeExpression subExpression = parseExpression();
+			consumeToken();
+			if(current() != TokenType.TOKEN_CLOSE) {
+				System.out.println("Error");
+			}
+			return subExpression;
+		}
+			
+		if(type == TokenType.TOKEN_UNARYOP) {
+			String op = currentToken.getValue();
+			NodeExpression expr = parseExpression();
+			return new NodeUnaryExpression(op,expr);
+		}
+		
+		System.out.println("Error");
+			
+		return null;
+	}
+
 
 }
