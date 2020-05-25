@@ -8,14 +8,18 @@ import lexer.Token;
 import lexer.TokenType;
 import parser.node.NodeAssign;
 import parser.node.NodeBinaryExpression;
+import parser.node.NodeBlock;
 import parser.node.NodeDeclaration;
 import parser.node.NodeExpression;
 import parser.node.NodeIdentifier;
+import parser.node.NodeIf;
 import parser.node.NodeLiteral;
 import parser.node.NodePrint;
 import parser.node.NodeProgramm;
+import parser.node.NodeReturn;
 import parser.node.NodeStatement;
 import parser.node.NodeUnaryExpression;
+import parser.node.NodeWhile;
 
 public class Parser {
 	
@@ -28,6 +32,8 @@ public class Parser {
 	
 	private List<Token> listTokens;
 	
+	private XMLVisitor xmlVisitor = new XMLVisitor();
+	
 	public Parser(Lexer lex) {
 		this.lex = lex;
 		listTokens = this.lex.toTokens();
@@ -38,8 +44,11 @@ public class Parser {
 	
 	public NodeProgramm read() {
 		programm = parseProgramm();
+		xmlVisitor.setProgramm(this.programm); // give the programm to the XMLManager
+		xmlVisitor.createXML("xml.txt");
 		return programm;
 	}
+	
 	
 	public void consumeToken() {	
 		index++;	
@@ -71,28 +80,46 @@ public class Parser {
 		return node;
 	}
 	
-	public void parseBlock() {
+	public NodeBlock parseBlock() {
 		
+		NodeBlock node = new NodeBlock();
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_BRACKETSOPEN) {
+			error("No brackets");
+		}
+		
+		consumeToken();
+		
+		while(currentToken.getTokenType() != TokenType.TOKEN_BRACKETSCLOSE) {
+			node.statements.add(parseStatement());
+			consumeToken();
+		}
+		
+		return node;
 	}
 	
 	public NodeStatement parseStatement() {
 		
 		NodeStatement output = null;
 		
+		boolean needEnd = true;
+		
 		switch(currentToken.getTokenType()) {
-		case TOKEN_VARIABLETYPE: output = parseVariableDecl();   break;
-		case TOKEN_IDENTIFIER:	 output = parseIdentifier();     break;
-		case TOKEN_PRINT:	     output = parsePrintStatement(); break;
-		//case TOKEN_IF: 
-		//case TOKEN_WHILE:
-		//case TOKEN_RETURN:
-		//case TOKEN_BRACKETSOPEN:
+		case TOKEN_VARIABLETYPE: needEnd = true;  output = parseVariableDecl();   break;
+		case TOKEN_IDENTIFIER:	 needEnd = true;  output = parseIdentifier();     break;
+		case TOKEN_PRINT:	     needEnd = true;  output = parsePrintStatement(); break;
+		case TOKEN_IF:           needEnd = false; output = parseIf();			  break;
+		case TOKEN_WHILE:        needEnd = false; output = parseWhile();          break;
+		case TOKEN_RETURN:	     needEnd = true;  output = parseReturn();		  break;
+		case TOKEN_BRACKETSOPEN: needEnd = false; output = parseBlock();          break;
 		}
 		
-		consumeToken();
+		if(needEnd) {
+			consumeToken();
+		}
 		
-		if(current() != TokenType.TOKEN_ENDINSTRUCTION) {
-			error("Missing EndInstruction " + current());
+		if(current() != TokenType.TOKEN_ENDINSTRUCTION && needEnd) { 
+			error("Missing EndInstruction" + current());
 		}
 		
 		return output;
@@ -131,6 +158,48 @@ public class Parser {
 		expression = parseExpression();
 		
 		return new NodeDeclaration(type,identifier,expression);
+	}
+	
+	public NodeIf parseIf() {
+		
+		
+		NodeExpression expr = null;
+		NodeBlock block = null;
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_IF) {
+			error("No if");
+		}
+		
+		consumeToken();
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_OPEN) {
+			error("No open token");
+		}
+		
+		expr = parseExpression();
+		
+		consumeToken();
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_CLOSE) {
+			error("no close token");
+		}
+		
+		consumeToken();
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_BRACKETSOPEN) {
+			error("No block");
+		}
+		
+		block = parseBlock();
+		return new NodeIf(expr,block,null);
+	}
+	
+	public NodeWhile parseWhile() {
+		return null;
+	}
+	
+	public NodeReturn parseReturn() {
+		return null;
 	}
 	
 	public NodePrint parsePrintStatement() {

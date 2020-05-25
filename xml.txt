@@ -1,0 +1,18 @@
+<programm>
+	<if>
+		<expression>
+			<binaryExpression>
+				<oprator == >
+				<expression>
+					<identifier : x >
+				</expression>
+				<expression>
+					<literal value : 3 >
+				</expression>
+			</binaryExpression>
+		</expression>
+		<block>
+nullnullnull		</block>
+	</if>
+<programm>
+

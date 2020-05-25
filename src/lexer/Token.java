@@ -166,7 +166,5 @@ public class Token {
 		String output = type.name() + " Value : " + value ;
 		return output;
 	}
-	
-
 
 }
