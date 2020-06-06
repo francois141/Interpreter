@@ -199,7 +199,10 @@ public class Parser {
 	}
 	
 	public NodeReturn parseReturn() {
-		return null;
+		if(currentToken.getTokenType() != TokenType.TOKEN_RETURN) {
+			error("No Token Return");
+		}
+		return new NodeReturn(parseExpression());
 	}
 	
 	public NodePrint parsePrintStatement() {

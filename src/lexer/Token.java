@@ -68,12 +68,12 @@ public class Token {
 		
 		if(isKeyWord(toTokenType)) {
 			switch(toTokenType) {
-			case "if": return TokenType.TOKEN_IF; 
-			case "for": return TokenType.TOKEN_FOR; 
-			case "while": return TokenType.TOKEN_WHILE;
-			case "return": return TokenType.TOKEN_RETURN; 
-			case "else": return TokenType.TOKEN_ELSE; 
-			case "print": return TokenType.TOKEN_PRINT;
+			case "if":      return TokenType.TOKEN_IF; 
+			case "for":     return TokenType.TOKEN_FOR; 
+			case "while":   return TokenType.TOKEN_WHILE;
+			case "return":  return TokenType.TOKEN_RETURN; 
+			case "else":    return TokenType.TOKEN_ELSE; 
+			case "print":   return TokenType.TOKEN_PRINT;
 			}
 		}
 		

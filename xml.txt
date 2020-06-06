@@ -1,18 +1,80 @@
 <programm>
-	<if>
-		<expression>
-			<binaryExpression>
-				<oprator == >
-				<expression>
-					<identifier : x >
-				</expression>
+	<block>
+		<declaration>
+			<id type : int  identifier : x >
 				<expression>
 					<literal value : 3 >
 				</expression>
-			</binaryExpression>
-		</expression>
-		<block>
-nullnullnull		</block>
-	</if>
+		</declaration>
+		<if>
+			<expression>
+				<binaryExpression>
+					<oprator == >
+					<expression>
+						<identifier : x >
+					</expression>
+					<expression>
+						<literal value : 3 >
+					</expression>
+				</binaryExpression>
+			</expression>
+			<block>
+				<assign>
+					<id identifier : y >
+						<expression>
+							<literal value : 4 >
+						</expression>
+				</assign>
+				<assign>
+					<id identifier : z >
+						<expression>
+							<binaryExpression>
+								<oprator * >
+								<expression>
+									<literal value : 3 >
+								</expression>
+								<expression>
+									<binaryExpression>
+										<oprator + >
+										<expression>
+											<identifier : x >
+										</expression>
+										<expression>
+											<binaryExpression>
+												<oprator * >
+												<expression>
+													<literal value : 5 >
+												</expression>
+												<expression>
+													<binaryExpression>
+														<oprator % >
+														<expression>
+															<identifier : y >
+														</expression>
+														<expression>
+															<literal value : 3 >
+														</expression>
+													</binaryExpression>
+												</expression>
+											</binaryExpression>
+										</expression>
+									</binaryExpression>
+								</expression>
+							</binaryExpression>
+						</expression>
+				</assign>
+				<return>
+					<expression>
+						<literal value : 3 >
+					</expression>
+				</return>
+			</block>
+		</if>
+		<return>
+			<expression>
+				<literal value : 3 >
+			</expression>
+		</return>
+	</block>
 <programm>
 

@@ -40,6 +40,8 @@ public class Node {
 		if(node instanceof NodePrint)       return visitPrint((NodePrint)node,depth);
 		if(node instanceof NodeBlock)       return visitBlock((NodeBlock)node,depth);
 		if(node instanceof NodeIf)          return visitIf((NodeIf)node, depth);
+		if(node instanceof NodeReturn)      return visitReturn((NodeReturn)node, depth);
+		if(node instanceof NodeWhile)       return visitWhile((NodeWhile)node, depth);
 		return null;
 	}
 	
@@ -148,6 +150,27 @@ public class Node {
 		depth--;
 		out += level(depth) + "</print>" + endl();
 		return out;	
+	}
+	
+	public String visitReturn(NodeReturn node, int depth) {
+		String out = "";
+		out += level(depth) + "<return>" + endl();
+		depth++;
+		out += visitExpression(node.expr,depth);
+		depth--;
+		out += level(depth) + "</return>" + endl();
+		return out;
+	}
+	
+	public String visitWhile(NodeWhile node, int depth) {
+		String out = "";
+		out += level(depth) + "<while>" + endl();
+		depth++;
+		out += visitExpression(node.expr,depth);
+		out += visitBlock(node.block,depth);
+		depth--;
+		out += level(depth) + "</while>" + endl();
+		return out;
 	}
 
 }
