@@ -1,80 +1,115 @@
 <programm>
-	<block>
-		<declaration>
-			<id type : int  identifier : x >
+	<if>
+		<expression>
+			<literal value : true >
+		</expression>
+		<block>
+			<print>
 				<expression>
 					<literal value : 3 >
 				</expression>
-		</declaration>
-		<if>
-			<expression>
-				<binaryExpression>
-					<oprator == >
+			</print>
+			<declaration>
+				<id type : int  identifier : x >
 					<expression>
-						<identifier : x >
+						<literal value : 40 >
 					</expression>
+			</declaration>
+			<assign>
+				<id identifier : x >
 					<expression>
-						<literal value : 3 >
+						<binaryExpression>
+							<oprator + >
+							<expression>
+								<identifier : x >
+							</expression>
+							<expression>
+								<literal value : 15 >
+							</expression>
+						</binaryExpression>
 					</expression>
-				</binaryExpression>
-			</expression>
-			<block>
-				<assign>
-					<id identifier : y >
+			</assign>
+			<if>
+				<expression>
+					<binaryExpression>
+						<oprator < >
 						<expression>
-							<literal value : 4 >
+							<identifier : x >
 						</expression>
-				</assign>
-				<assign>
-					<id identifier : z >
 						<expression>
-							<binaryExpression>
-								<oprator * >
-								<expression>
-									<literal value : 3 >
-								</expression>
-								<expression>
-									<binaryExpression>
-										<oprator + >
-										<expression>
-											<identifier : x >
-										</expression>
-										<expression>
-											<binaryExpression>
-												<oprator * >
-												<expression>
-													<literal value : 5 >
-												</expression>
-												<expression>
-													<binaryExpression>
-														<oprator % >
-														<expression>
-															<identifier : y >
-														</expression>
-														<expression>
-															<literal value : 3 >
-														</expression>
-													</binaryExpression>
-												</expression>
-											</binaryExpression>
-										</expression>
-									</binaryExpression>
-								</expression>
-							</binaryExpression>
+							<literal value : 50 >
 						</expression>
-				</assign>
-				<return>
-					<expression>
-						<literal value : 3 >
-					</expression>
-				</return>
-			</block>
-		</if>
-		<return>
+					</binaryExpression>
+				</expression>
+				<block>
+					<print>
+						<expression>
+							<literal value : false >
+						</expression>
+					</print>
+				</block>
+			</if>
+			<if>
+				<expression>
+					<binaryExpression>
+						<oprator > >
+						<expression>
+							<identifier : x >
+						</expression>
+						<expression>
+							<literal value : 50 >
+						</expression>
+					</binaryExpression>
+				</expression>
+				<block>
+					<print>
+						<expression>
+							<identifier : x >
+						</expression>
+					</print>
+				</block>
+			</if>
+		</block>
+	</if>
+	<assign>
+		<id identifier : x >
 			<expression>
-				<literal value : 3 >
+				<literal value : 30 >
 			</expression>
-		</return>
-	</block>
+	</assign>
+	<while>
+		<expression>
+			<binaryExpression>
+				<oprator >= >
+				<expression>
+					<identifier : x >
+				</expression>
+				<expression>
+					<literal value : 1 >
+				</expression>
+			</binaryExpression>
+		</expression>
+		<block>
+			<print>
+				<expression>
+					<identifier : x >
+				</expression>
+			</print>
+			<assign>
+				<id identifier : x >
+					<expression>
+						<binaryExpression>
+							<oprator - >
+							<expression>
+								<identifier : x >
+							</expression>
+							<expression>
+								<literal value : 1 >
+							</expression>
+						</binaryExpression>
+					</expression>
+			</assign>
+		</block>
+	</while>
 <programm>
 

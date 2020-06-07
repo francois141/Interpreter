@@ -125,7 +125,7 @@ public class Node {
 	
 	public String visitLiteral(NodeLiteral<?> expr, int depth) {
 		String out="";
-		out += level(depth) + "<literal value : "+ expr.getValue() + " >" + endl(); 
+		out += level(depth) + "<literal value : "+ expr.value + " >" + endl(); 
 		return out;
 	}
 	

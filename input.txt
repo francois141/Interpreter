@@ -1,9 +1,18 @@
-{
-	int x = 3;
-	if(x==3){
-		y = 4;
-		z = 3 * (x + 5*(y%3));
-		return 3;
+if(true){
+	print(3);
+	int x = 40;
+	x = x + 15;
+	if(x < 50){
+		print(false);
 	}
-	return 3;
+	if(x > 50){
+		print(x);
+	}
+}
+
+x = 30;
+
+while(x >= 1){
+	print(x);
+	x = x - 1;
 }

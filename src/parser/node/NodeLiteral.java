@@ -2,14 +2,14 @@ package parser.node;
 
 public class NodeLiteral<T> extends NodeExpression {
 	
-	private T value;
+	public String value;
+	public String type;
 
-	public NodeLiteral(T value) {
+	public NodeLiteral(String value,String type) {
 		this.value = value;
+		this.type = type;
 	}
 
-	public T getValue() {
-		return this.value;
-	}
+	
 	
 }

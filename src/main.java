@@ -1,6 +1,7 @@
 import java.util.List;
 
 import IO.FileReader;
+import interpreter.Interpreter;
 import lexer.Lexer;
 import lexer.Token;
 import parser.Parser;
@@ -18,6 +19,9 @@ public class main {
 		Parser parser = new Parser(lex);
 		
 		parser.read();
+		
+		Interpreter interpreter = new Interpreter(parser.programm);
+		interpreter.interpret();
 	}
 
 }

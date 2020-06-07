@@ -24,7 +24,7 @@ import parser.node.NodeWhile;
 public class Parser {
 	
 	private Lexer lex;
-	private NodeProgramm programm = new NodeProgramm();
+	public NodeProgramm programm = new NodeProgramm();
 	
 	private Token currentToken = null;
 	
@@ -195,7 +195,37 @@ public class Parser {
 	}
 	
 	public NodeWhile parseWhile() {
-		return null;
+		
+		NodeExpression expr = null;
+		NodeBlock block = null;
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_WHILE) {
+			error("No WHILE");
+		}
+		
+		consumeToken();
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_OPEN) {
+			error("No open token");
+		}
+		
+		expr = parseExpression();
+		
+		consumeToken();
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_CLOSE) {
+			error("no close token");
+		}
+		
+		consumeToken();
+		
+		if(currentToken.getTokenType() != TokenType.TOKEN_BRACKETSOPEN) {
+			error("No block");
+		}
+		
+		block = parseBlock();
+		
+		return new NodeWhile(expr,block);
 	}
 	
 	public NodeReturn parseReturn() {
@@ -274,11 +304,11 @@ public class Parser {
 		TokenType type = currentToken.getTokenType();
 		
 		if(type == TokenType.TOKEN_INTEGER) {
-			return new NodeLiteral<Integer>(Integer.parseInt(currentToken.getValue()));
+			return new NodeLiteral(currentToken.getValue(),"Integer");
 		}
 		
 		if(type == TokenType.TOKEN_BOOLEAN) {
-			return new NodeLiteral<Boolean>(Boolean.parseBoolean(currentToken.getValue()));
+			return new NodeLiteral(currentToken.getValue(),"Boolean");
 		}
 		
 		if(type == TokenType.TOKEN_IDENTIFIER) {
